@@ -9,3 +9,4 @@ class Wallet extends Model
     //
     protected $table = 'wallet';
 }
+        

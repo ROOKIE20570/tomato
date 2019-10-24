@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'cost'], function () {
+    Route::get('/{id}','CostController@getOne');
+    Route::post('/','CostController@addCost');
+    Route::put('/{id}','CostController@updateCost');
+    Route::delete('/{id}','CostController@delete');
+});

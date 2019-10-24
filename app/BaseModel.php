@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cost extends BaseModel
+class BaseModel extends Model
 {
     //
-    protected $table = 'costs';
+    protected $guarded = [];
 }

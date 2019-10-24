@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cost;
+use App\Http\Requests\AddCostRequest;
+use App\Http\Requests\UpdateCostRequest;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -12,4 +14,18 @@ class CostController extends Controller
     {
         $this->model = $cost;
     }
+
+    public function addCost(AddCostRequest $request)
+    {
+        $request->validated();
+        $cost = $this->model->create($request->validated());
+        return $this->success($cost);
+    }
+
+    public function updateCost($id, UpdateCostRequest $request)
+    {
+        $this->model->find($id)->update($request->validated());
+        return $this->success();
+    }
+
 }

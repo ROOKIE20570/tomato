@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TOMATO</title>
     <link rel="stylesheet" href="{{URL::asset('layui/css/layui.css')}}">
+    <script src="{{URL::asset('layui/layui.js')}}"></script>
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -54,7 +56,6 @@
 </div>
 
 </body>
-<script src="{{URL::asset('layui/layui.js')}}"></script>
 <script>
     layui.use('element', function(){
         var element = layui.element;

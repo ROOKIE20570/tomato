@@ -28,4 +28,12 @@ class CostController extends Controller
         return $this->success();
     }
 
+    public function getCosts()
+    {
+        $costs = $this->model->paginate(10);
+        if ($costs){
+            $costs = $costs->toArray();
+        }
+        return $this->success($costs['data'],['count'=>$costs['total'],'limit'=>$costs['per_page']]);
+    }
 }

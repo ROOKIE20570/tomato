@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('layout');
+    return view('tasks');
+});
+Route::get('/task/{id?}', function () {
+    $id = Route::current()->parameter('id');
+    return view('task',compact('id'));
 });

@@ -19,7 +19,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'cost'], function () {
     Route::get('/{id}','CostController@getOne');
+    Route::get('/','CostController@getCosts');
     Route::post('/','CostController@addCost');
     Route::put('/{id}','CostController@updateCost');
     Route::delete('/{id}','CostController@delete');
+});
+
+Route::group(['prefix' => 'task'], function () {
+    Route::get('/{id}','TaskController@getOne');
+    Route::get('/','TaskController@getTasks');
+    Route::post('/','TaskController@addTask');
+    Route::put('/{id}','TaskController@updateTask');
+    Route::delete('/{id}','TaskController@delete');
 });

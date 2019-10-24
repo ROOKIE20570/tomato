@@ -24,13 +24,17 @@ class Controller extends BaseController
     }
 
 
-    public function success($data = [], $httpCode = 200)
+    public function success($data = [], $attachData = [],$httpCode = 200)
     {
         $result = [
             'code' => 0,
             'msg' => 'success',
             'data' => $data
         ];
+
+        foreach ($attachData as $key=>$datum){
+            $result[$key] = $datum;
+        }
 
         return response()->json($result, $httpCode);
     }

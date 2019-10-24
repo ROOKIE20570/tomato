@@ -1,0 +1,83 @@
+@extends('layout')
+@section('content')
+    <table class="layui-hide" id="test"></table>
+
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#test'
+                , url: '/api/task'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    {field: 'id', title: 'ID'}
+                    , {field: 'name', title: '任务名称'}
+                    , {field: 'price', title: '任务赏金'}
+                    , {
+                        field: 'type', title: '任务计算类型', templet: function (d) {
+                            switch (d.type) {
+                                case 0:
+                                    return '普通任务';
+                                    break;
+                                case 1:
+                                    return '时间段任务';
+                                    break;
+                                case 2:
+                                    return '定时统计任务';
+                                    break;
+                                default:
+                                    return '';
+                            }
+                        }
+                    },
+                    {field: 'duration', title: '任务持续时长(限时间段任务)',templet:function (d) {
+                            if (d.type == 1){
+                                return formatSeconds(d.duration);
+                            }else{
+                                return '';
+                            }
+                        }},
+                    {field: 'remind_time', title: '提醒时间(限定时统计任务)',templet:function (d) {
+                            if (d.type == 2){
+                                return '每天 '+d.remind_time
+                            }else{
+                                return '';
+                            }
+                        }},
+
+
+
+                ]],
+                page: true,
+            });
+        });
+
+        function formatSeconds(value) {
+
+            var theTime = parseInt(value);// 秒
+            var middle = 0;// 分
+            var hour = 0;// 小时
+
+            if (theTime > 60) {
+                middle = parseInt(theTime / 60);
+                theTime = parseInt(theTime % 60);
+                if (middle > 60) {
+                    hour = parseInt(middle / 60);
+                    middle = parseInt(middle % 60);
+                }
+            }
+            var result = "" + parseInt(theTime) + "秒";
+            if (middle > 0) {
+                result = "" + parseInt(middle) + "分" + result;
+            }
+            if (hour > 0) {
+                result = "" + parseInt(hour) + "小时" + result;
+            }
+            return result;
+        }
+
+    </script>
+@endsection

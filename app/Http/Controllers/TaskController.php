@@ -27,5 +27,8 @@ class TaskController extends Controller
         $this->model->find($id)->update($request->validated());
         return $this->success();
     }
+    //定时的要扫 扫到了⏰ 发邮件通知检查
+    //时间段的搞一个延迟队列  延迟队列结束后发邮件询问是否完成 完成后再加
+    //普通的直接加分
 
 }

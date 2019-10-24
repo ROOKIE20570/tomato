@@ -29,7 +29,7 @@ class AddTaskRequest extends BaseRequest
             'price' => 'integer|required',
             'type' => Rule::in(0, 1, 2).'|required',
             'duration'=>'integer|required_if:type:1',
-            'remind_time'=>'required_if:type,2'
+            'remind_time'=>'string|required_if:type,2'
             //
         ];
     }

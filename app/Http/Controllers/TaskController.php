@@ -27,4 +27,5 @@ class TaskController extends Controller
         $this->model->find($id)->update($request->validated());
         return $this->success();
     }
+
 }

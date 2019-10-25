@@ -19,8 +19,8 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger("price")->comment('得分奖励');
             $table->string('name',40)->comment('得分方式名称');
             $table->integer('type')->comment('0-普通任务  1-时间段任务 2-定时提醒任务');
-            $table->integer('duration')->comment('type = 1时 秒');
-            $table->string('remind_time')->comment('type = 2时的提醒时间  每天的几点  12:00这种格式');
+            $table->integer('duration')->comment('type = 1时 秒')->default(0);
+            $table->string('remind_time')->comment('type = 2时的提醒时间  每天的几点  12:00这种格式')->default('');
             $table->timestamps();
 
         });

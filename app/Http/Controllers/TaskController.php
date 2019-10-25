@@ -33,10 +33,10 @@ class TaskController extends Controller
     {
         $cond = $request->validated();
         $tasks = $this->model->where($cond)->paginate(10);
-        if(($tasks)){
+        if (($tasks)) {
             $tasks = $tasks->toArray();
         }
-        return $this->success($tasks['data'],['count'=>$tasks['total'],'limit'=>$tasks['per_page']]);
+        return $this->success($tasks['data'], ['count' => $tasks['total'], 'limit' => $tasks['per_page']]);
 
     }
     //定时的要扫 扫到了⏰ 发邮件通知检查

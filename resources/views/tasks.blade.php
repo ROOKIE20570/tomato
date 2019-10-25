@@ -1,8 +1,14 @@
 @extends('layout')
 @section('content')
-    <table class="layui-hide" id="test"></table>
+    <script type="text/html" id="operate">
+        <a class="layui-btn layui-btn-xs" lay-event="trigger">触发</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <table class="layui-hide" id="test" lay-filter="test"></table>
 
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
 
     <script>
         layui.use('table', function () {
@@ -10,11 +16,11 @@
 
             table.render({
                 elem: '#test'
-                , url: '/api/task'
+                , url: '/api/task',
+                toolbar: '#operate'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
-                    {field: 'id', title: 'ID'}
-                    , {field: 'name', title: '任务名称'}
+                    {field: 'name', title: '任务名称'}
                     , {field: 'price', title: '任务赏金'}
                     , {
                         field: 'type', title: '任务计算类型', templet: function (d) {
@@ -33,27 +39,49 @@
                             }
                         }
                     },
-                    {field: 'duration', title: '任务持续时长(限时间段任务)',templet:function (d) {
-                            if (d.type == 1){
+                    {
+                        field: 'duration', title: '任务持续时长(限时间段任务)', templet: function (d) {
+                            if (d.type == 1) {
                                 return formatSeconds(d.duration);
-                            }else{
+                            } else {
                                 return '';
                             }
-                        }},
-                    {field: 'remind_time', title: '提醒时间(限定时统计任务)',templet:function (d) {
-                            if (d.type == 2){
-                                return '每天 '+d.remind_time
-                            }else{
+                        }
+                    },
+                    {
+                        field: 'remind_time', title: '提醒时间(限定时统计任务)', templet: function (d) {
+                            if (d.type == 2) {
+                                return '每天 ' + d.remind_time
+                            } else {
                                 return '';
                             }
-                        }},
-
+                        }
+                    },
+                    {fixed: 'right', title: '操作', toolbar: '#operate'}
 
 
                 ]],
                 page: true,
             });
+
+            table.on('tool(test)', function (obj) {
+                var data = obj.data;
+                switch (obj.event) {
+                    case 'trigger':
+                        break;
+                    case 'del':
+                        layer.confirm('确定删除该行吗', function (index) {
+                            del(data.id);
+                            layer.close(index)
+                        })
+                        break;
+                    case 'edit':
+                        edit(data.id);
+                        break
+                }
+            });
         });
+
 
         function formatSeconds(value) {
 
@@ -79,5 +107,27 @@
             return result;
         }
 
+        function del(id) {
+            layui.jquery.ajax({
+                    type: "DELETE",
+                    url: "/api/task/" + id,
+                    success: function (res) {
+                        if (res.code == 0) {
+                            alert('删除成功');
+                        } else {
+                            alert('删除失败');
+                        }
+
+                        window.location.reload();
+
+                    }
+                }
+            )
+        }
+
+        function edit(id) {
+            window.location.href='/task/'+id;
+        }
     </script>
+
 @endsection

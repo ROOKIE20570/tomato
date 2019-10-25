@@ -30,7 +30,7 @@ class CostController extends Controller
 
     public function getCosts()
     {
-        $costs = $this->model->paginate(10);
+        $costs = $this->model->orderBy('id','desc')->paginate(10);
         if ($costs){
             $costs = $costs->toArray();
         }

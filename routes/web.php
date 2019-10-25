@@ -14,7 +14,15 @@
 Route::get('/', function () {
     return view('tasks');
 });
-Route::get('/task/{id?}', function () {
+Route::get('/task/{id?}', function (\App\Task $task) {
+
     $id = Route::current()->parameter('id');
-    return view('task',compact('id'));
+    $currentTask = null;
+    if ($id){
+        $currentTask = $task->find($id);
+    }
+    return view('task',compact('id', 'currentTask'));
+});
+Route::get('/tasks', function () {
+    return view('tasks');
 });

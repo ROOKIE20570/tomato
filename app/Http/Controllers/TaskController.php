@@ -32,7 +32,7 @@ class TaskController extends Controller
     public function getTasks(GetTasksRequest $request)
     {
         $cond = $request->validated();
-        $tasks = $this->model->where($cond)->paginate(10);
+        $tasks = $this->model->where($cond)->orderBy('id','desc')->paginate(10);
         if (($tasks)) {
             $tasks = $tasks->toArray();
         }

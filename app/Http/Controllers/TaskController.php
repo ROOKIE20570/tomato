@@ -51,4 +51,16 @@ class TaskController extends Controller
     //定时的要扫 扫到了⏰ 发邮件通知检查
     //时间段的搞一个延迟队列  延迟队列结束后发邮件询问是否完成 完成后再加
     //普通的直接加分
+    public function trigger($id)
+    {
+        $task = $this->model->find($id);
+        if(!$task){
+            return $this->fail(40000,404);
+        }
+
+        switch ($task['type']){
+            case 0:
+
+        }
+    }
 }

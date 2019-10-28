@@ -132,12 +132,12 @@
         function taskTrigger(id){
             layui.jquery.ajax({
                     type: "POST",
-                    url: "/api/task/trigger" + id,
+                    url: "/api/task/trigger/" + id,
                     success: function (res) {
                         if (res.code == 0) {
-                            alert('删除成功');
+                            alert('触发成功');
                         } else {
-                            alert('删除失败');
+                            alert('触发失败');
                         }
 
                         window.location.reload();

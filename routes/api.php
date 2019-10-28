@@ -31,4 +31,6 @@ Route::group(['prefix' => 'task'], function () {
     Route::post('/','TaskController@addTask');
     Route::put('/{id}','TaskController@updateTask');
     Route::delete('/{id}','TaskController@delete');
+    Route::put('/trigger/{id}','TaskController@trigger');
 });
+

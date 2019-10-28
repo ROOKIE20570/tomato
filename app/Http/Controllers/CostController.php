@@ -24,6 +24,7 @@ class CostController extends Controller
 
     public function updateCost($id, UpdateCostRequest $request)
     {
+
         $this->model->find($id)->update($request->validated());
         return $this->success();
     }

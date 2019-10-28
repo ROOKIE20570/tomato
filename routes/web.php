@@ -26,3 +26,15 @@ Route::get('/task/{id?}', function (\App\Task $task) {
 Route::get('/tasks', function () {
     return view('tasks');
 });
+Route::get('/cost/{id?}', function (\App\Cost $cost) {
+
+    $id = Route::current()->parameter('id');
+    $currentCost = null;
+    if ($id){
+        $currentCost = $cost->find($id);
+    }
+    return view('cost',compact('id', 'currentCost'));
+});
+Route::get('/costs', function () {
+    return view('costs');
+});

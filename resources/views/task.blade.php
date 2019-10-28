@@ -14,23 +14,23 @@
                 <label class="layui-form-label">任务奖金</label>
                 <div class="layui-input-block">
                     <input type="text" name="price" id="price" lay-verify="required" placeholder="请输入"
-                           autocomplete="off" class="layui-input">
+                           autocomplete="off" class="layui-input" value="{{$currentTask['price']??''}}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">任务类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="type" value="0" title="普通任务" checked lay-filter="type">
+                    <input type="radio" name="type"  id="type0" value="0" title="普通任务" checked lay-filter="type">
                     <input type="radio" name="type"  id="type1" value="1" title="时间段任务" lay-filter="type">
-                    <input type="radio" name="type"  value="2" title="定时统计任务" lay-filter="type">
+                    <input type="radio" name="type"  id="type2" value="2" title="定时统计任务" lay-filter="type">
                 </div>
             </div>
             <div class="layui-form-item" id="remind">
                 <div class="layui-inline">
                     <label class="layui-form-label">持续时间(选填)</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="duration" lay-verify="duration" autocomplete="off" class="layui-input">
+                        <input type="text" name="duration" lay-verify="duration" autocomplete="off" class="layui-input" value="{{$currentTask['duration']??''}}">
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <label class="layui-form-label">检查日期(选填)</label>
                 <div class="layui-input-inline">
                     <input type="text" name="remind_time" id="remind_time" lay-verify="remind" placeholder="HH:mm:ss"
-                           autocomplete="off" class="layui-input">
+                           autocomplete="off" class="layui-input" value="{{$currentTask['remind_time']??''}}">
                 </div>
             </div>
 
@@ -125,9 +125,6 @@
 
             form.on('submit(demo1)', function (data) {
                 var res = layui.jquery("#type1").attr('checked',true)
-                console.log(res)
-                alert(11);
-                return false;
                 var formData = data.field
                 if (formData.type == 1) {
                     delete formData.remind_time
@@ -139,6 +136,25 @@
                 }
 
 
+                @if($currentTask)
+                layui.jquery.ajax(
+                    {
+                        type: "PUT",
+                        url: "/api/task/{{$currentTask['id']}}",
+                        data:data.field,
+                        success: function (res) {
+                            if (res.code == 0) {
+                                alert('更新成功');
+                            } else {
+                                alert('更新失败');
+                            }
+
+                            window.location.reload();
+
+                        }
+                    }
+                    );
+                @else
                 layui.jquery.post('/api/task', data.field, function (res) {
                     if (res.code == 0) {
                         alert("添加成功");
@@ -147,6 +163,8 @@
                         alert(res.msg);
                     }
                 })
+
+            @endif
             });
 
             form.on('radio(type)', function (data) {
@@ -167,9 +185,12 @@
             }
 
             @if($currentTask)
-                var type = "{{$currentTask['type']}}";
-                type = parseInt(type)
+            var type = "{{$currentTask['type']}}";
+
+            layui.jquery("#type"+type).attr('checked',true);
             switchType(type)
+
+            form.render()
             @endif
         });
 

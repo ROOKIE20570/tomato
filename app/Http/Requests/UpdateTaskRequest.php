@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTaskRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateTaskRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,11 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string',
+            'price' => 'integer',
+            'type' => Rule::in(0, 1, 2),
+            'duration'=>'required_if:type,1',
+            'remind_time'=>'required_if:type,2'
         ];
     }
 }

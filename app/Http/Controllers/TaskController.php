@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+     /**
+     */
     //
     public function __construct(Task $task)
     {
@@ -23,6 +25,13 @@ class TaskController extends Controller
         return $this->success($cost);
     }
 
+    /**
+     * @param $id
+     * @param UpdateTaskRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     *
+    **/
     public function updateTask($id, UpdateTaskRequest $request)
     {
         $this->model->find($id)->update($request->validated());

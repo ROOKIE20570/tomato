@@ -21,6 +21,8 @@ class CreateWalletTable extends Migration
             $table->timestamps();
         });
     }
+    /**
+     */
 
     /**
      * Reverse the migrations.

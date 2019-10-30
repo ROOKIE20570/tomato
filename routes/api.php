@@ -32,5 +32,6 @@ Route::group(['prefix' => 'task'], function () {
     Route::put('/{id}','TaskController@updateTask');
     Route::delete('/{id}','TaskController@delete');
     Route::put('/trigger/{id}','TaskController@trigger');
+    Route::put('/deal','TaskController@dealTask')->name('dealTask');
 });
 

@@ -18,7 +18,7 @@ class CreateTaskRecordTable extends Migration
             $table->integer('task_id');
             $table->tinyInteger('task_type')->comment('冗余 task_type');
             $table->tinyInteger('task_name')->comment('冗余 task_type');
-            $table->tinyInteger('status')->comment('0-待完成 1-已完成 2-已结束');
+            $table->tinyInteger('status')->comment('0-进行中 1-待用户确认 2-成功已结算 3-失败已结算');
             $table->timestamp('deadline')->comment('结束时间')->nullable(true);
             $table->timestamps();
         });

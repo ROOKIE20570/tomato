@@ -15,6 +15,7 @@ class CreateDiaryTable extends Migration
     {
         Schema::create('diary', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('content');
             $table->timestamps();
         });
     }

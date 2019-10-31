@@ -12,6 +12,7 @@ use App\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use function Psy\sh;
 
 class TaskController extends Controller
 {
@@ -83,14 +84,17 @@ class TaskController extends Controller
                 $wallet = new Wallet();
                 $wallet->income = $task['price'];
                 $wallet->type = Wallet::$income;
+                $wallet->bind_id = $id;
                 $wallet->save();
                 break;
             case 1:
                 $taskRecord->status = TaskRecord::$running;
                 $endTime = Carbon::now()->addSeconds($task['duration']);
+                Log::info($endTime);
                 $taskRecord->deadline = $endTime;
                 $taskRecord->save();
-                $delayService->createDelayJob('task',$taskRecord->id,$task['duration'],app('url').':8000/api/task/deal',null);
+                $res = $delayService->createDelayJob('task',$taskRecord->id,$task['duration'],'http://localhost:8000/api/task/deal',null);
+                Log::info(var_export($res,true));
                 break;
             default:
                 return $this->fail(40000,400,'该种任务无需触发');
@@ -101,8 +105,16 @@ class TaskController extends Controller
 
     }
 
-    public function dealTask(Request $request)
+    public function dealTask(Request $request, TaskRecord $taskRecord)
     {
-        Log::info(var_export($request->all(), true));
+        $taskRecordId = $request->input('id');
+        $record = $taskRecord->find($taskRecordId);
+        if ($record){
+            $record->status = TaskRecord::$toBeConfirmed;
+            $record->save();
+        }
+
+
+        echo 'success';
     }
 }

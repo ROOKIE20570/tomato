@@ -14,7 +14,7 @@ class DelayService
 
     public function createDelayJob($topic, $id, $delay, $callback, $body)
     {
-        $res = $this->client->request('POST', $this->address, ['json' => ['topic' => $topic, 'id' => $id, 'delay' => $delay, 'callback' => $callback, 'body' => $body]]);
+        $res = $this->client->request('POST', $this->address, ['json' => ['topic' => strval($topic), 'id' => strval($id), 'delay' => intval($delay), 'callback' => $callback, 'body' => $body]]);
 
         $jsonResult = $res->getBody()->getContents();
         return json_decode($jsonResult);
@@ -22,14 +22,14 @@ class DelayService
 
     public function getDelayJob($topic, $id)
     {
-        $res = $this->client->request('GET', $this->address, ['query' => ['topic' => $topic, 'id' => $id]]);
+        $res = $this->client->request('GET', $this->address, ['query' => ['topic' => strval($topic), 'id' => strval($id)]]);
         $jsonResult = $res->getBody()->getContents();
         return json_decode($jsonResult);
     }
 
     public function deleteDelayJob($topic, $id)
     {
-        $res = $this->client->request('DELETE', $this->address, ['query' => ['topic' => $topic, 'id' => $id]]);
+        $res = $this->client->request('DELETE', $this->address, ['query' => ['topic' => strval($topic), 'id' => strval($id)]]);
         $jsonResult = $res->getBody()->getContents();
         return json_decode($jsonResult);
     }

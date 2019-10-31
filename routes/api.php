@@ -29,9 +29,9 @@ Route::group(['prefix' => 'task'], function () {
     Route::get('/{id}','TaskController@getOne');
     Route::get('/','TaskController@getTasks');
     Route::post('/','TaskController@addTask');
+    Route::put('/deal','TaskController@dealTask')->name('dealTask');
     Route::put('/{id}','TaskController@updateTask');
     Route::delete('/{id}','TaskController@delete');
     Route::put('/trigger/{id}','TaskController@trigger');
-    Route::put('/deal','TaskController@dealTask')->name('dealTask');
 });
 

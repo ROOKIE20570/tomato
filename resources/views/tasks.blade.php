@@ -68,6 +68,7 @@
                 var data = obj.data;
                 switch (obj.event) {
                     case 'trigger':
+                        taskTrigger(data.id)
                         break;
                     case 'del':
                         layer.confirm('确定删除该行吗', function (index) {
@@ -131,17 +132,21 @@
 
         function taskTrigger(id){
             layui.jquery.ajax({
-                    type: "POST",
+                    type: "PUT",
                     url: "/api/task/trigger/" + id,
                     success: function (res) {
                         if (res.code == 0) {
                             alert('触发成功');
                         } else {
-                            alert('触发失败');
+                            alert(res.msg);
                         }
 
                         window.location.reload();
 
+                    },
+                    error:function (res,t) {
+                        console.log(res)
+                        alert('该种任务无需触发')
                     }
                 }
             )

@@ -20,8 +20,8 @@
                 toolbar: '#operate'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
-                    {field: 'name', title: '任务名称'}
-                    , {field: 'price', title: '任务赏金'},
+                    {field: 'name', title: '消费项目'}
+                    , {field: 'price', title: '消耗金币'},
                     {fixed: 'right', title: '操作', toolbar: '#operate'}
 
 

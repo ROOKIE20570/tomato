@@ -19,9 +19,9 @@ class TaskController extends Controller
      /**
      */
     //
-    public function __construct(Task $task)
+    public function __construct(Task $taskModel)
     {
-        $this->model = $task;
+        $this->model = $taskModel;
     }
 
     public function addTask(AddTaskRequest $request)
@@ -47,7 +47,7 @@ class TaskController extends Controller
     public function getTasks(GetTasksRequest $request)
     {
         $cond = $request->validated();
-        $tasks = $this->model->where($cond)->orderBy('id','desc')->paginate(10);
+        $tasks = $this->model->where($cond)->orderBy('name','desc')->paginate(10);
         if (($tasks)) {
             $tasks = $tasks->toArray();
         }
@@ -105,10 +105,10 @@ class TaskController extends Controller
 
     }
 
-    public function dealTask(Request $request, TaskRecord $taskRecord)
+    public function dealTask(Request $request, TaskRecord $taskRecordModel)
     {
         $taskRecordId = $request->input('id');
-        $record = $taskRecord->find($taskRecordId);
+        $record = $taskRecordModel->find($taskRecordId);
         if ($record){
             $record->status = TaskRecord::$toBeConfirmed;
             $record->save();

@@ -21,14 +21,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">消费项目</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/costs">消费项目</a></dd>
                         <dd><a href="/cost">新增消费项目</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">任务</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/tasks">任务列表</a></dd>

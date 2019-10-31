@@ -3,7 +3,7 @@
     <div class="layui-row" style="margin-top: 30px">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">任务名称</label>
+                <label class="layui-form-label">消费项目</label>
                 <div class="layui-input-block">
                     <input type="text" name="name" id="name" lay-verify="required" autocomplete="off"
                            placeholder="请输入标题"
@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">任务奖金</label>
+                <label class="layui-form-label">消耗金币</label>
                 <div class="layui-input-block">
                     <input type="text" name="price" id="price" lay-verify="required" placeholder="请输入"
                            autocomplete="off" class="layui-input" value="{{$currentCost['price']??''}}">

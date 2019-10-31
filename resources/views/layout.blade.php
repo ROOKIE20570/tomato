@@ -20,26 +20,21 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;"></a>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">消费项目</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">layout</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="/costs">消费项目</a></dd>
+                        <dd><a href="/cost">新增消费项目</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
+                    <a href="javascript:;">任务</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="/tasks">任务列表</a></dd>
+                        <dd><a href="/task">新增任务</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
     </div>
@@ -57,7 +52,20 @@
 
 </body>
 <script>
-    layui.use('element', function(){
+    layui.use('layer', function () {
+        layui.jquery('body').on('keyup', function (e) {
+            //我这里是监控空格和回车键
+            if (e.keyCode == 13) {
+                layui.jquery.get('/api/wallet',function (res) {
+                    layer.msg("钱包总额为 -- "+res.data)
+                })
+
+            }
+            //do something
+
+        });
+    });
+    layui.use('element', function () {
         var element = layui.element;
     });
 </script>

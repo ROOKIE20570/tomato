@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GetRecordsRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class GetRecordsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +25,7 @@ class GetRecordsRequest extends FormRequest
     public function rules()
     {
         return [
+            'status'=>Rule::in(0,1,2,3)
             //
         ];
     }

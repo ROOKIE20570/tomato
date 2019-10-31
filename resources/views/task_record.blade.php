@@ -16,15 +16,14 @@
 
             table.render({
                 elem: '#test'
-                , url: '/api/task',
-                toolbar: '#operate'
+                , url: '/api/task_record'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
-                    {field: 'name', title: '任务名称'}
-                    , {field: 'price', title: '任务赏金'}
+                    {field: 'task_name', title: '任务名称'}
                     , {
-                        field: 'type', title: '任务计算类型', templet: function (d) {
-                            switch (d.type) {
+                        field: 'task_type', title: '任务计算类型', templet: function (d) {
+
+                            switch (d.task_type) {
                                 case 0:
                                     return '普通任务';
                                     break;
@@ -40,46 +39,53 @@
                         }
                     },
                     {
-                        field: 'duration', title: '任务持续时长(限时间段任务)', templet: function (d) {
-                            if (d.type == 1) {
-                                return formatSeconds(d.duration);
-                            } else {
-                                return '';
+                        field: 'status', title: '状态', templet: function (d) {
+                            switch (d.status) {
+                                case 0:
+                                    return '进行中';
+                                    break;
+                                case 1:
+                                    return '待确认';
+                                    break;
+                                case 2:
+                                    return '已成功';
+                                    break;
+                                case 3:
+                                    return '未完成';
+                                    break;
+                                default:
+                                    return ''
                             }
                         }
                     },
                     {
-                        field: 'remind_time', title: '提醒时间(限定时统计任务)', templet: function (d) {
-                            if (d.type == 2) {
-                                return '每天 ' + d.remind_time
-                            } else {
-                                return '';
+                        field: 'updated_at', title: '完成时间'
+                    },
+                    {
+                        fixed: 'right', title: '操作', templet: function (d) {
+                            switch (d.status) {
+                                case 0:
+                                    return '进行中'
+                                    break;
+                                case 1:
+                                    return '<a class="layui-btn layui-btn-xs" onclick="confirmStatus('+d.id+',2)">已完成</a>\n' +
+                                        '<a class="layui-btn layui-btn-xs" onclick="confirmStatus('+d.id+',3)">未完成</a>'
+                                    break;
+                                case 2:
+                                    return '已完成';
+                                    break;
+                                case 3:
+                                    return '未完成';
+                                    break;
+                                default:
+                                    return ''
                             }
                         }
                     },
-                    {fixed: 'right', title: '操作', toolbar: '#operate'}
 
 
                 ]],
                 page: true,
-            });
-
-            table.on('tool(test)', function (obj) {
-                var data = obj.data;
-                switch (obj.event) {
-                    case 'trigger':
-                        taskTrigger(data.id)
-                        break;
-                    case 'del':
-                        layer.confirm('确定删除该行吗', function (index) {
-                            del(data.id);
-                            layer.close(index)
-                        })
-                        break;
-                    case 'edit':
-                        edit(data.id);
-                        break
-                }
             });
         });
 
@@ -111,7 +117,7 @@
         function del(id) {
             layui.jquery.ajax({
                     type: "DELETE",
-                    url: "/api/task/" + id,
+                    url: "/api/task_record/" + id,
                     success: function (res) {
                         if (res.code == 0) {
                             alert('删除成功');
@@ -130,13 +136,14 @@
             window.location.href = '/task/' + id;
         }
 
-        function taskTrigger(id){
+        function confirmStatus(id,status) {
             layui.jquery.ajax({
                     type: "PUT",
-                    url: "/api/task/trigger/" + id,
+                    url: "/api/task_record/" + id,
+                    data:{status:status},
                     success: function (res) {
                         if (res.code == 0) {
-                            alert('触发成功');
+                            alert('成功');
                         } else {
                             alert(res.msg);
                         }
@@ -144,9 +151,9 @@
                         window.location.reload();
 
                     },
-                    error:function (res,t) {
+                    error: function (res, t) {
                         console.log(res)
-                        alert('该种任务无需触发')
+                        alert('失败')
                     }
                 }
             )

@@ -2,6 +2,7 @@
 @section('content')
     <script type="text/html" id="operate">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="cost">花费</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
     <table class="layui-hide" id="test" lay-filter="test"></table>
@@ -31,7 +32,8 @@
             table.on('tool(test)', function (obj) {
                 var data = obj.data;
                 switch (obj.event) {
-                    case 'trigger':
+                    case 'cost':
+                        cost(data.id)
                         break;
                     case 'del':
                         layer.confirm('确定删除该行吗', function (index) {
@@ -93,15 +95,15 @@
             window.location.href = '/cost/' + id;
         }
 
-        function taskTrigger(id){
+        function cost(id) {
             layui.jquery.ajax({
                     type: "POST",
-                    url: "/api/cost/trigger" + id,
+                    url: "/api/cost/" + id,
                     success: function (res) {
                         if (res.code == 0) {
-                            alert('删除成功');
+                            alert('消费成功');
                         } else {
-                            alert('删除失败');
+                            alert('消费失败');
                         }
 
                         window.location.reload();

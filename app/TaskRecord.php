@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaskRecord extends Model
+class TaskRecord extends BaseModel
 {
     //
     protected $table = 'task_record';

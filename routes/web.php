@@ -38,3 +38,6 @@ Route::get('/cost/{id?}', function (\App\Cost $cost) {
 Route::get('/costs', function () {
     return view('costs');
 });
+Route::get('/records', function () {
+    return view('task_record');
+});

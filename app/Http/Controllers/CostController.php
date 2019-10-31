@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cost;
 use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\UpdateCostRequest;
+use App\Wallet;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -20,6 +21,22 @@ class CostController extends Controller
         $request->validated();
         $cost = $this->model->create($request->validated());
         return $this->success($cost);
+    }
+
+    public function cost($id)
+    {
+        $cost = $this->model->find($id);
+        if (!$cost){
+            return $this->fail(40004,404);
+        }
+
+
+        $wallet = new Wallet();
+        $wallet->income = -$cost->price;
+        $wallet->type = Wallet::$spend;
+        $wallet->bind_id = $id;
+        $wallet->save();
+        return $this->success();
     }
 
     public function updateCost($id, UpdateCostRequest $request)

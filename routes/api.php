@@ -34,4 +34,10 @@ Route::group(['prefix' => 'task'], function () {
     Route::delete('/{id}','TaskController@delete');
     Route::put('/trigger/{id}','TaskController@trigger');
 });
+Route::group(['prefix' => 'task_record'], function () {
+    Route::get('/{id}','TaskRecordController@getOne');
+    Route::get('/','TaskRecordController@getRecords');
+    Route::put('/{id}','TaskRecordController@update');
+    Route::delete('/{id}','TaskRecordController@delete');
+});
 

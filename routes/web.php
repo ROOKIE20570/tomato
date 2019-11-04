@@ -54,3 +54,10 @@ Route::get('/diary/{id?}', function (\App\Diary $diaryModel) {
     }
     return view('diary',compact('id', 'diary'));
 });
+Route::get('/wishes', function () {
+    return view('wishes');
+});
+
+Route::get('/wish', function () {
+    return view('wish');
+});

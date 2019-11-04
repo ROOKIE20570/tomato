@@ -43,6 +43,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">心愿</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/wishes">心愿列表</a></dd>
+                        <dd><a href="/wish">新增心愿</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">任务记录</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/records">任务记录</a></dd>

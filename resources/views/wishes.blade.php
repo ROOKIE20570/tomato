@@ -1,9 +1,9 @@
 @extends('layout')
 @section('content')
     <ul class="layui-nav">
-        <li class="layui-nav-item layui-this"><a href="javascript:;">进行中</a></li>
-        <li class="layui-nav-item"><a href="javascript:;">已完成</a></li>
-        <li class="layui-nav-item"><a href="javascript:;">已放弃</a></li>
+        <li class="layui-nav-item layui-this" lay-event="getRunning"><a href="javascript:;">进行中</a></li>
+        <li class="layui-nav-item" lay-event="getFinished"><a href="javascript:;">已完成</a></li>
+        <li class="layui-nav-item" lay-event="getGiveup"><a href="javascript:;">已放弃</a></li>
     </ul>
     <script type="text/html" id="operate">
         <a class="layui-btn layui-btn-xs" lay-event="finish">完成</a>
@@ -21,7 +21,7 @@
 
             table.render({
                 elem: '#test'
-                , url: '/api/wish',
+                , url: '/api/wish?status=0',
                 toolbar: '#operate'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
@@ -31,8 +31,21 @@
 
 
                 ]],
+                id:'wishes',
                 page: true,
             });
+
+            function reloadData(status)
+            {
+                table.reload('wishes',{
+                    url:'/api/status',
+                    where:{
+                        key:{
+                            status:status
+                        }
+                    }
+                })
+            }
 
             table.on('tool(test)', function (obj) {
                 var data = obj.data;
@@ -44,7 +57,17 @@
                         dealWish(data.id,1);
                         break;
                     case 'del':
-                        del(data.id)
+                        del(data.id);
+                        break;
+                    case 'getRunning':
+                        reloadData(0);
+                        break;
+                    case 'getFinished':
+                        reloadData(1);
+                        break;
+                    case 'getGiveUp':
+                        reloadData(2);
+                        break;
                 }
             });
         });

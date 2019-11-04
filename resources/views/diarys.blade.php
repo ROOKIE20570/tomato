@@ -19,8 +19,24 @@
                 toolbar: '#operate'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
-                    {field: 'name', title: '消费项目'},
-                    {field: 'price', title: '消耗金币'},
+                    {
+                        field: 'created_at', title: '日志日期', templet: function (d) {
+                            console.log(d.created_at);
+                            return d.created_at;
+                        }
+                    },
+                    {
+                        field: 'content', title: '内容', templet: function (d) {
+                            var content = d.content;
+                            var length = content.length;
+                            content = content.substring(0, 30);
+                            if (length > 30) {
+                                content = content + "..."
+                            }
+
+                            return content
+                        }
+                    },
                     {fixed: 'right', title: '操作', toolbar: '#operate'}
 
 
@@ -88,7 +104,7 @@
         }
 
         function view(id) {
-            window.location.href='/diary/'+id;
+            window.location.href = '/diary/' + id;
         }
     </script>
 

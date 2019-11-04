@@ -15,7 +15,7 @@ class WalletController extends Controller
 
     public function getWallet()
     {
-        $wallet = $this->model->sum('income');
+        $wallet = $this->model->getWallet();
         return $this->success($wallet);
     }
 

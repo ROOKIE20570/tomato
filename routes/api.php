@@ -52,4 +52,12 @@ Route::group(['prefix' => 'diary'], function () {
     Route::delete('/{id}','DiaryController@delete');
 
 });
+Route::group(['prefix' => 'wish'], function () {
+    Route::get('/','WishController@getWishes');
+    Route::get('/{id}','WishController@getOne');
+    Route::post('/','WishController@addWish');
+    Route::put('/wish/complete/{id}','WishController@complete');
+    Route::delete('/{id}','WishController@delete');
+
+});
 

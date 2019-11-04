@@ -12,5 +12,10 @@ class Wallet extends BaseModel
     public static $income = 0;
     public static $spend = 1;
 
+    public function getWallet()
+    {
+        return $this->sum('income');
+
+    }
 }
         

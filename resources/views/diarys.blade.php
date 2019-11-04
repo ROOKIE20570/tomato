@@ -1,9 +1,11 @@
 @extends('layout')
 @section('content')
+
     <script type="text/html" id="operate">
         <a class="layui-btn layui-btn-xs" lay-event="view">查看</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
+
     <table class="layui-hide" id="test" lay-filter="test"></table>
 
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->

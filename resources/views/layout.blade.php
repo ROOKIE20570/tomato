@@ -36,6 +36,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">日报</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/diarys">日报列表</a></dd>
+                        <dd><a href="/diary">新增日报</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">任务记录</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/records">任务记录</a></dd>

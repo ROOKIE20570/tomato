@@ -22,14 +22,14 @@
                     {
                         field: 'created_at', title: '日志日期', templet: function (d) {
                             console.log(d.created_at);
-                            return d.created_at;
+                            return d.created_at.substring(0,10);
                         }
                     },
                     {
                         field: 'content', title: '内容', templet: function (d) {
                             var content = d.content;
                             var length = content.length;
-                            content = content.substring(0, 30);
+                            content = content.substring(0, 50);
                             if (length > 30) {
                                 content = content + "..."
                             }

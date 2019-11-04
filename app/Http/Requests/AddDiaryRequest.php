@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddDiaryRequest extends FormRequest
+class AddDiaryRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AddDiaryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,7 @@ class AddDiaryRequest extends FormRequest
     public function rules()
     {
         return [
+            'content'=>'required|string'
             //
         ];
     }

@@ -41,3 +41,16 @@ Route::get('/costs', function () {
 Route::get('/records', function () {
     return view('task_record');
 });
+
+Route::get('/diarys', function () {
+    return view('diarys');
+});
+
+Route::get('/diary/{id?}', function (\App\Diary $diaryModel) {
+    $id = Route::current()->parameter('id');
+    $diary = null;
+    if ($id){
+        $diary = $diaryModel->find($id);
+    }
+    return view('diary',compact('id', 'diary'));
+});

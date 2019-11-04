@@ -45,4 +45,11 @@ Route::group(['prefix' => 'wallet'], function () {
     Route::get('/','WalletController@getWallet');
 
 });
+Route::group(['prefix' => 'diary'], function () {
+    Route::get('/','DiaryController@getDiarys');
+    Route::get('/{id}','DiaryController@getOne');
+    Route::post('/','DiaryController@addDiary');
+    Route::delete('/{id}','DiaryController@delete');
+
+});
 

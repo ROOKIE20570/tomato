@@ -26,7 +26,6 @@ class TaskController extends Controller
 
     public function addTask(AddTaskRequest $request)
     {
-        $request->validated();
         $cost = $this->model->create($request->validated());
         return $this->success($cost);
     }

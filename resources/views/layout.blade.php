@@ -35,6 +35,12 @@
                         <dd><a href="/task">新增任务</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">任务记录</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/records">任务记录</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>

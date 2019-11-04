@@ -5,7 +5,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">心愿名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" id="name" lay-verify="required" autocomplete="off"
+                    <input type="text" name="wish" id="wish" lay-verify="required" autocomplete="off"
                            placeholder="请输入标题"
                            value="" class="layui-input">
                 </div>

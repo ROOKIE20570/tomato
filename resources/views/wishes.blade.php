@@ -1,14 +1,15 @@
 @extends('layout')
 @section('content')
-    <ul class="layui-nav">
-        <li class="layui-nav-item layui-this" lay-event="getRunning"><a href="javascript:;">进行中</a></li>
-        <li class="layui-nav-item" lay-event="getFinished"><a href="javascript:;">已完成</a></li>
-        <li class="layui-nav-item" lay-event="getGiveup"><a href="javascript:;">已放弃</a></li>
-    </ul>
+
     <script type="text/html" id="operate">
         <a class="layui-btn layui-btn-xs" lay-event="finish">完成</a>
         <a class="layui-btn layui-btn-xs" lay-event="giveup">放弃</a>
         <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="filter">
+        <a class="layui-btn layui-btn-xs" lay-event="getRunning">进行中</a>
+        <a class="layui-btn layui-btn-xs" lay-event="getFinished">已完成</a>
+        <a class="layui-btn layui-btn-xs" lay-event="getGiveup">已放弃</a>
     </script>
     <table class="layui-hide" id="test" lay-filter="test"></table>
 
@@ -22,7 +23,7 @@
             table.render({
                 elem: '#test'
                 , url: '/api/wish?status=0',
-                toolbar: '#operate'
+                toolbar:'#filter'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
                     {field: 'wish', title: '消费项目'},
@@ -37,17 +38,17 @@
 
             function reloadData(status)
             {
+                console.log(111);
                 table.reload('wishes',{
-                    url:'/api/status',
+                    url:'/api/wish',
                     where:{
-                        key:{
-                            status:status
-                        }
+                        status:status
                     }
                 })
             }
 
             table.on('tool(test)', function (obj) {
+                console.log(111);
                 var data = obj.data;
                 switch (obj.event) {
                     case 'finish':
@@ -59,18 +60,25 @@
                     case 'del':
                         del(data.id);
                         break;
+                }
+            });
+            table.on('toolbar(test)', function (obj) {
+                console.log(111);
+                var data = obj.data;
+                switch (obj.event) {
                     case 'getRunning':
                         reloadData(0);
                         break;
                     case 'getFinished':
-                        reloadData(1);
-                        break;
-                    case 'getGiveUp':
                         reloadData(2);
+                        break;
+                    case 'getGiveup':
+                        reloadData(1);
                         break;
                 }
             });
         });
+
 
         function dealWish(id, status) {
             layui.jquery.ajax(

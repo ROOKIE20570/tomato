@@ -16,8 +16,7 @@
 
             table.render({
                 elem: '#test'
-                , url: '/api/cost',
-                toolbar: '#operate'
+                , url: '/api/cost'
                 , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 , cols: [[
                     {field: 'name', title: '消费项目'}

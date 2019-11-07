@@ -30,7 +30,7 @@
 
                     xAxis: {
 
-                        data: res.data.trigger
+                        data: res.data.trigger.reverse()
 
                     },
 

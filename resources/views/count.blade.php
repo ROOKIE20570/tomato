@@ -2,15 +2,12 @@
 @section('content')
     <script src="{{URL::asset('echarts.js')}}"></script>
 
-    <button>30次</button>
-    <button>60次</button>
-    <button>120次</button>
     <div id="main" style="width: 600px;height:400px;"></div>
 
 
     <script>
         layui.use('layer',function () {
-            layui.jquery.get('/api/wallet/recent?length=30',function (res) {
+            layui.jquery.get('/api/wallet/recent?length=120',function (res) {
                 console.log(res.data.amount)
                 console.log(res.data.trigger)
                 var myChart = echarts.init(document.getElementById('main'));
@@ -45,7 +42,7 @@
 
                         type: 'line',
 
-                        data: res.data.amount
+                        data: res.data.amount.reverse()
 
                     }]
 

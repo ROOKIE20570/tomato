@@ -54,6 +54,7 @@ class TaskRecordController extends Controller
                 $wallet->income = $task['income'];
                 $wallet->type = Wallet::$income;
                 $wallet->bind_id = $task['id'];
+                $wallet->trigger_name = $task['name'];
                 $wallet->save();
             }
 

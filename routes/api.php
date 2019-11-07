@@ -43,6 +43,7 @@ Route::group(['prefix' => 'task_record'], function () {
 });
 Route::group(['prefix' => 'wallet'], function () {
     Route::get('/','WalletController@getWallet');
+    Route::get('/recent','WalletController@getRecentWalletStatus');
 
 });
 Route::group(['prefix' => 'diary'], function () {

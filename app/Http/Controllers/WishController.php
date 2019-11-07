@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class WishController extends Controller
 {
-    //
+
     public function __construct(Wish $wish)
     {
         $this->model = $wish;
@@ -22,15 +22,20 @@ class WishController extends Controller
         if (($wishes)) {
             $wishes = $wishes->toArray();
         }
-        return $this->success($wishes['data'], ['count' => $wishes['total'], 'limit' => $wishes['per_page']]);    }
+        return $this->success($wishes['data'], ['count' => $wishes['total'], 'limit' => $wishes['per_page']]);
+    }
 
+    /**
+     * @param AddWishRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addWish(AddWishRequest $request)
     {
         $wish = $this->model->create($request->validated());
         return $this->success($wish);
     }
 
-    public function complete(CompleteWishRequest $request,$id)
+    public function complete(CompleteWishRequest $request, $id)
     {
         $this->model->find($id)->update($request->validated());
         return $this->success();

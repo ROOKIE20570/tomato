@@ -35,6 +35,7 @@ class CostController extends Controller
         $wallet->income = -$cost->price;
         $wallet->type = Wallet::$spend;
         $wallet->bind_id = $id;
+        $wallet->trigger_name = $cost['name'];
         $wallet->save();
         return $this->success();
     }

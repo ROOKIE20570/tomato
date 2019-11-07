@@ -61,3 +61,6 @@ Route::get('/wishes', function () {
 Route::get('/wish', function () {
     return view('wish');
 });
+Route::get('/count', function () {
+    return view('count');
+});

@@ -50,6 +50,7 @@ class TaskController extends Controller
         if (($tasks)) {
             $tasks = $tasks->toArray();
         }
+
         return $this->success($tasks['data'], ['count' => $tasks['total'], 'limit' => $tasks['per_page']]);
 
     }
@@ -84,6 +85,7 @@ class TaskController extends Controller
                 $wallet->income = $task['price'];
                 $wallet->type = Wallet::$income;
                 $wallet->bind_id = $id;
+                $wallet->trigger_name = $task['name'];
                 $wallet->save();
                 break;
             case 1:

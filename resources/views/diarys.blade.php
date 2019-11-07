@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-
+    <script src="js/echarts.min.js"></script>
     <script type="text/html" id="operate">
         <a class="layui-btn layui-btn-xs" lay-event="view">查看</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
